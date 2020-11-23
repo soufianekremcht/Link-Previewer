@@ -1,4 +1,4 @@
-# UrlPreviewer
+# Url Previewer
 URL Previewer Library For Android built in Kotlin.
 
 [![](https://jitpack.io/v/SoufianeKreX/UrlPreviewer.svg)](https://jitpack.io/#SoufianeKreX/UrlPreviewer)
@@ -23,7 +23,7 @@ Add this to your module build gradle file
 
 ~~~gradle
 dependencies {
-	implementation 'com.github.SoufianeKreX:UrlPreviewer:version'
+	implementation 'com.github.SoufianeKreX:UrlPreviewer:0.0.1'
 }
 ~~~
 
