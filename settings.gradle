@@ -1,0 +1,3 @@
+include ':urlpreviewer'
+include ':app'
+rootProject.name = "URLPreviewer"
