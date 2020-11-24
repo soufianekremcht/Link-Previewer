@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/link_preview_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_small"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_small"
+    app:cardElevation="@dimen/spacing_small">
+
+    <RelativeLayout
+        android:id="@+id/url_preview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground">
+
+        <TextView
+            android:id="@+id/item_url_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small"
+            android:padding="@dimen/spacing_normal"
+            android:layout_toEndOf="@id/item_url_text"
+            android:text="Title"
+            android:textSize="@dimen/font_normal"/>
+
+        <TextView
+            android:id="@+id/item_url_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_small"
+            android:padding="@dimen/spacing_normal"
+            android:text="URL"
+            android:textSize="@dimen/font_normal"/>
+
+
+
+        <ImageView
+            android:id="@+id/item_url_options"
+            style="@style/style_url_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_more_black" />
+
+        <ImageView
+            android:id="@+id/item_url_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/item_url_text"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/spacing_small"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/item_url_content_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_url_text"
+            android:layout_margin="@dimen/spacing_small"
+            android:layout_toStartOf="@id/item_url_options"
+            android:layout_toEndOf="@id/item_url_img"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="@dimen/spacing_small"
+            android:text="@string/link_desc_hint"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

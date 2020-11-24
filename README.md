@@ -2,7 +2,7 @@
 URL Previewer Library For Android built in Kotlin
 
 
-#### Import using Gradle
+#### Gradle Dependency
 
 ~~~gradle
 compile 'io.github.ponnamkarthik:richlinkpreview:1.0.9'
