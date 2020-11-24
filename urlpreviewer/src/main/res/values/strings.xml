@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">URLPreviewer</string>
+    <string name="link_desc_hint">url preview description ...</string>
+</resources>
