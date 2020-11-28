@@ -1,3 +1,2 @@
-include ':library'
-include ':app'
+include ':app' , ':library'
 rootProject.name = "URLPreviewer"

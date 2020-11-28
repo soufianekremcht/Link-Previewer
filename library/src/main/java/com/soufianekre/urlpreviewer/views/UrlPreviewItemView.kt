@@ -15,7 +15,7 @@ import com.soufianekre.urlpreviewer.UrlPreviewer
 import com.soufianekre.urlpreviewer.data.UrlMetaData
 import com.soufianekre.urlpreviewer.listeners.ResponseListener
 import com.soufianekre.urlpreviewer.listeners.UrlPreviewerListener
-import com.soufianekre.urlpreviewer.listeners.ViewListener
+import com.soufianekre.urlpreviewer.listeners.PreviewListener
 import com.squareup.picasso.Picasso
 
 
@@ -107,20 +107,23 @@ open class UrlPreviewItemView(context: Context, attrs: AttributeSet?) : Relative
         } else null
     }
 
-    fun setUrl(url: String?, viewListener: ViewListener) {
+    fun setUrl(url: String?, previewListener: PreviewListener) {
         mainUrl = url
-        val richPreview = UrlPreviewer(null,object : ResponseListener {
+        val richPreview = UrlPreviewer(object : ResponseListener {
             override fun onData(metaData: UrlMetaData?) {
                 urlMetaData = metaData
-                if (urlMetaData?.title!!.isNotEmpty())
-                    viewListener.onSuccess(true)
+                if (urlMetaData?.title!!.isNotEmpty()){
+                    metaData?.let {
+                        previewListener.onSuccess(it,true) }
+                }
                 setupView()
             }
 
             override fun onError(e: Exception?) {
-                viewListener.onError(e)
+                previewListener.onError(e)
             }
         })
         richPreview.getPreview(url)
     }
+
 }
