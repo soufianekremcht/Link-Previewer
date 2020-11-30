@@ -3,7 +3,8 @@ URL Previewer Library For Android built in Kotlin.
 
 [![](https://jitpack.io/v/SoufianeKreX/UrlPreviewer.svg)](https://jitpack.io/#SoufianeKreX/UrlPreviewer)
 
-### Still In Developement  . It not Working For The current Moment
+### Still In Development . It not Working For The current Moment
+### I Welcome Anyone who can help add Improvement on this project.
 
 
 ## Gradle Dependency
@@ -29,6 +30,6 @@ dependencies {
 }
 ~~~
 
-## The basics
+## The Usage
+## (Not Yet).
 
-First, Add this file to your xml layout folder :
