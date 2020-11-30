@@ -1,6 +1,7 @@
 package com.soufianekre.urlpreviewer
 
 import android.os.AsyncTask
+import android.util.Log
 import android.webkit.URLUtil
 import com.soufianekre.urlpreviewer.data.UrlMetaData
 import com.soufianekre.urlpreviewer.listeners.ResponseListener
@@ -12,8 +13,9 @@ import java.net.URI
 import java.net.URISyntaxException
 
 
-public class UrlPreviewer(var metaData: UrlMetaData?, var responseListener: ResponseListener?) {
+public class UrlPreviewer(var responseListener: ResponseListener?) {
 
+    var metaData: UrlMetaData? = UrlMetaData()
 
     var url: String? = null
 
@@ -37,7 +39,8 @@ public class UrlPreviewer(var metaData: UrlMetaData?, var responseListener: Resp
     }
 
     companion object {
-        class UrlDataAsync(private val urlPreviewer: UrlPreviewer) : AsyncTask<Void?, Void?, Void?>() {
+        class UrlDataAsync(private val urlPreviewer: UrlPreviewer) :
+            AsyncTask<Void?, Void?, Void?>() {
 
             override fun onPreExecute() {
                 super.onPreExecute()
@@ -83,6 +86,7 @@ public class UrlPreviewer(var metaData: UrlMetaData?, var responseListener: Resp
 
                     // url Image
                     val imageElements: Elements = doc.select("meta[property=og:image]")
+
                     if (imageElements.size > 0) {
                         val image: String = imageElements.attr("content")
                         if (image.isNotEmpty()) {
@@ -160,8 +164,6 @@ public class UrlPreviewer(var metaData: UrlMetaData?, var responseListener: Resp
                 super.onCancelled()
                 urlPreviewer.responseListener?.onError(Exception("Error , Data Fetching has been canceled ."))
             }
-
-
 
             override fun onPostExecute(aVoid: Void?) {
                 super.onPostExecute(aVoid)

@@ -8,7 +8,8 @@
     android:clickable="true"
     android:orientation="vertical"
     android:padding="@dimen/spacing_small"
-    app:cardElevation="@dimen/spacing_small">
+    app:cardElevation="@dimen/spacing_small"
+    android:focusable="true">
 
     <RelativeLayout
         android:id="@+id/url_preview_layout"
@@ -21,9 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_small"
-            android:padding="@dimen/spacing_normal"
-            android:layout_toEndOf="@id/item_url_text"
+            android:padding="@dimen/spacing_small"
+            android:layout_alignParentStart="true"
             android:text="Title"
+            android:textStyle="bold"
             android:textSize="@dimen/font_normal"/>
 
         <TextView
@@ -31,8 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_small"
-            android:padding="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_small"
             android:text="URL"
+            android:layout_below="@id/item_url_title_text"
             android:textSize="@dimen/font_normal"/>
 
 
@@ -44,6 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:padding="@dimen/spacing_small"
+            android:layout_margin="@dimen/spacing_small"
             android:src="@drawable/ic_more_black" />
 
         <ImageView
@@ -53,7 +58,8 @@
             android:layout_below="@id/item_url_text"
             android:layout_alignParentStart="true"
             android:layout_margin="@dimen/spacing_small"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:contentDescription="Url Description Img" />
 
         <TextView
             android:id="@+id/item_url_content_desc"
