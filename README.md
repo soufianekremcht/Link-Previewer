@@ -26,7 +26,7 @@ Add this to your module build gradle file
 
 ~~~gradle
 dependencies {
-	implementation 'com.github.SoufianeKreX:UrlPreviewer:0.0.1'
+	implementation 'com.github.SoufianeKreX:UrlPreviewer:' + library_version
 }
 ~~~
 
