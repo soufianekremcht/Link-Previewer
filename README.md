@@ -31,5 +31,30 @@ dependencies {
 ~~~
 
 ## The Usage
-## (Not Yet).
 
+##### Add the view to xml Layout 
+
+~~~xml
+<com.soufianekre.urlpreviewer.views.UrlPreviewItemView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+~~~
+##### Add the following code to your kotlin class
+
+~~~kotlin
+urlPreviewView.setUrl(url,object : PreviewListener {
+            override fun onSuccess(metadata: UrlMetaData, status: Boolean) {
+                Toast.makeText(context,
+                    "The preview Is Working", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onError(e: Exception?) {
+                Toast.makeText(context,
+                    "Preview Error" + e?.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+
+        })
+~~~
+#### That is it . you can now see your Url Preview as CardView
+
+### Getting Url Data and Implementing a your Custom View  (Not yet)
