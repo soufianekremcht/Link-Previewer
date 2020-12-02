@@ -62,14 +62,22 @@ public class UrlPreviewer(var responseListener: ResponseListener?) {
                     urlPreviewer.metaData?.title =title
 
                     // url Content Description
-                    var description: String =
-                        doc.select("meta[name=description]").attr("content")
+                    var description: String = doc
+                        .select("meta[name=description]")
+                        .attr("content")
+
                     if (description.isEmpty()) {
-                        description = doc.select("meta[name=Description]").attr("content")
+                        description = doc
+                            .select("meta[name=Description]")
+                            .attr("content")
                     }
+
                     if (description.isEmpty()) {
-                        description = doc.select("meta[property=og:description]").attr("content")
+                        description = doc
+                            .select("meta[property=og:description]")
+                            .attr("content")
                     }
+
                     urlPreviewer.metaData?.description=description
 
                     // Url MediaType
@@ -94,26 +102,18 @@ public class UrlPreviewer(var responseListener: ResponseListener?) {
                                 urlPreviewer.resolveURL(urlPreviewer.url, image)
                         }
                     }
+
                     if (urlPreviewer.metaData?.imageUrl!!.isEmpty()) {
-                        var src: String = doc.select("link[rel=image_src]").attr("href")
-                        if (src.isNotEmpty()) {
-                            urlPreviewer.metaData?.imageUrl =
-                                urlPreviewer.resolveURL(urlPreviewer.url, src)
-                        } else {
-                            src = doc.select("link[rel=apple-touch-icon]").attr("href")
-                            if (src.isNotEmpty()) {
-                                urlPreviewer.metaData?.imageUrl =
-                                    urlPreviewer.resolveURL(urlPreviewer.url, src)
-                                urlPreviewer.metaData?.favicon =
-                                    urlPreviewer.resolveURL(urlPreviewer.url, src)
-                            } else {
-                                src = doc.select("link[rel=icon]").attr("href")
-                                if (src.isNotEmpty()) {
-                                    urlPreviewer.metaData?.imageUrl =
-                                        urlPreviewer.resolveURL(urlPreviewer.url, src)
-                                    urlPreviewer.metaData?.favicon =
-                                        urlPreviewer.resolveURL(urlPreviewer.url, src)
-                                }
+                        val cssQueries : ArrayList<String> = ArrayList()
+                        cssQueries.add("link[rel=image_src]")
+                        cssQueries.add("link[rel=apple-touch-icon]")
+                        cssQueries.add("link[rel=icon]")
+                        for (i in 0..cssQueries.size){
+                            val src = doc.select(cssQueries[i]).attr("href")
+                            if (src.isNotEmpty()){
+                                urlPreviewer.metaData?.imageUrl = urlPreviewer.resolveURL(urlPreviewer.url, src)
+                                urlPreviewer.metaData?.favicon = urlPreviewer.resolveURL(urlPreviewer.url, src)
+                                break
                             }
                         }
                     }

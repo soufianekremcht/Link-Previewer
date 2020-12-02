@@ -42,14 +42,15 @@
 
         <ImageView
             android:id="@+id/item_url_options"
-            style="@style/style_url_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/spacing_small"
             android:layout_margin="@dimen/spacing_small"
-            android:src="@drawable/ic_more_black" />
+            android:src="@drawable/ic_more_black"
+            style="@style/style_url_icon"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/item_url_img"

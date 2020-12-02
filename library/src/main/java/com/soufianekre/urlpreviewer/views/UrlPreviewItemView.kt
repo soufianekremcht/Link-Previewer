@@ -43,13 +43,7 @@ open class UrlPreviewItemView(context: Context, attrs: AttributeSet?) : Relative
 
 
     fun setupView() {
-        var view : View? = null
-        if (findLinearLayoutChild() != null) {
-            view = findLinearLayoutChild()
-        } else {
-            view = this
-            View.inflate(context, R.layout.item_url_preview, this)
-        }
+        View.inflate(context, R.layout.item_url_preview, this)
         urlPreviewerLayout = findViewById<View>(R.id.url_preview_layout) as RelativeLayout
         urlImgView = findViewById<View>(R.id.item_url_img) as ImageView
         urlTitle = findViewById<View>(R.id.item_url_title_text) as TextView
@@ -101,15 +95,10 @@ open class UrlPreviewItemView(context: Context, attrs: AttributeSet?) : Relative
     }
 
 
-    private fun findLinearLayoutChild(): LinearLayout? {
-        return if (childCount > 0 && getChildAt(0) is LinearLayout) {
-            getChildAt(0) as LinearLayout
-        } else null
-    }
 
     fun setUrl(url: String?, previewListener: PreviewListener) {
         mainUrl = url
-        val richPreview = UrlPreviewer(object : ResponseListener {
+        val urlPreview = UrlPreviewer(object : ResponseListener {
             override fun onData(metaData: UrlMetaData?) {
                 urlMetaData = metaData
                 if (urlMetaData?.title!!.isNotEmpty()){
@@ -123,7 +112,15 @@ open class UrlPreviewItemView(context: Context, attrs: AttributeSet?) : Relative
                 previewListener.onError(e)
             }
         })
-        richPreview.getPreview(url)
+        urlPreview.getPreview(url)
     }
+
+    private fun findLinearLayoutChild(): LinearLayout? {
+        return if (childCount > 0 && getChildAt(0) is LinearLayout) {
+            getChildAt(0) as LinearLayout
+        } else null
+    }
+
+
 
 }

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:layout_margin="10dp">
+
     <com.soufianekre.urlpreviewer.views.UrlPreviewItemView
         android:id="@+id/item_url_preview"
         android:layout_width="match_parent"

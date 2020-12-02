@@ -1,4 +1,4 @@
-### Guidelines 
+## Guidelines 
 
 2. A PR should be focused and contained.If you are changing multiple unrelated things, they should be in separate PRs.
 3. A PR should fix a bug or solve a problem - something that only you would use is not necessarily something that should be published.

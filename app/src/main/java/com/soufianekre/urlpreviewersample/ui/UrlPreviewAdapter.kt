@@ -3,8 +3,12 @@ package com.soufianekre.urlpreviewersample.ui
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.soufianekre.urlpreviewer.data.UrlMetaData
+import com.soufianekre.urlpreviewer.listeners.PreviewListener
 import com.soufianekre.urlpreviewersample.R
+import kotlinx.android.synthetic.main.list_item_url_preview.view.*
 
 class UrlPreviewAdapter(var context : Context, var urlList :ArrayList<String>) : RecyclerView.Adapter<UrlPreviewViewHolder>(){
 
@@ -17,8 +21,22 @@ class UrlPreviewAdapter(var context : Context, var urlList :ArrayList<String>) :
     override fun getItemCount(): Int = urlList.size
 
     override fun onBindViewHolder(holder: UrlPreviewViewHolder, position: Int) {
-        holder.bind(urlList[position]);
+        val url = urlList[position]
+
+        holder.urlPreviewView.setUrl(url,object : PreviewListener {
+            override fun onSuccess(metadata: UrlMetaData, status: Boolean) {
+                Toast.makeText(context,
+                    "The preview Is Working", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onError(e: Exception?) {
+                Toast.makeText(context,
+                    "Preview Error" + e?.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+
+        })
     }
+
 
 
 }

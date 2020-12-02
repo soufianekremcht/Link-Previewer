@@ -17,13 +17,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(main_toolbar)
-        var urlList: ArrayList<String> = ArrayList();
         urlList.add("https://stackoverflow.com/questions/49990933/configuration-on-demand-is-not-supported-by-the-current-version-of-the-android-g")
         urlList.add("https://www.youtube.com/watch?v=766qmHTc2ro&list=RD766qmHTc2ro&start_radio=1")
         urlList.add("https://www.youtube.com/watch?v=3SJ0Rd7XU4Y")
         links_recycler_view.setHasFixedSize(true)
         links_recycler_view.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         urlPreviewAdapter = UrlPreviewAdapter(this, urlList)
+        links_recycler_view.adapter = urlPreviewAdapter
+
+        refresh_layout.setOnRefreshListener {
+            links_recycler_view.adapter = urlPreviewAdapter
+            refresh_layout.isRefreshing = false
+
+        }
+        setupUi()
 
     }
 

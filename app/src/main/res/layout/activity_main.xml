@@ -24,13 +24,13 @@
         android:layout_height="wrap_content"
         android:inputType="textUri"
         android:hint="Add an URL"
-        android:layout_margin="@dimen/spacing_small"/>
+        android:layout_margin="@dimen/spacing_normal"
+        android:padding="@dimen/spacing_normal"/>
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_url_btn"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add URL"/>
@@ -41,15 +41,22 @@
         android:text="Sample Test of The Library"
         android:textSize="20sp"
         android:layout_gravity="center"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/links_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/links_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </LinearLayout>
