@@ -1,8 +1,8 @@
 package com.soufianekre.urlpreviewer.listeners
 
-import com.soufianekre.urlpreviewer.data.UrlMetaData
+import com.soufianekre.urlpreviewer.data.WebPreview
 
 interface PreviewListener {
-    fun onSuccess(metadata:UrlMetaData,status: Boolean)
+    fun onSuccess(metadata:WebPreview, status: Boolean)
     fun onError(e: Exception?)
 }

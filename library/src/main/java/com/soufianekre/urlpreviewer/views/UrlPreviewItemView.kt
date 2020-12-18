@@ -5,120 +5,133 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.cardview.widget.CardView
 import com.soufianekre.urlpreviewer.R
 import com.soufianekre.urlpreviewer.UrlPreviewer
-import com.soufianekre.urlpreviewer.data.UrlMetaData
+import com.soufianekre.urlpreviewer.data.WebPreview
 import com.soufianekre.urlpreviewer.listeners.ResponseListener
 import com.soufianekre.urlpreviewer.listeners.UrlPreviewerListener
 import com.soufianekre.urlpreviewer.listeners.PreviewListener
 import com.squareup.picasso.Picasso
 
 
-open class UrlPreviewItemView(context: Context, attrs: AttributeSet?) : RelativeLayout(context,attrs) {
+public class UrlPreviewItemView(context: Context, attrs: AttributeSet?) : CardView(context,attrs) {
 
-    private var urlMetaData: UrlMetaData? = null
 
-    private var urlPreviewerLayout: RelativeLayout? = null
-    private var urlImgView: ImageView? = null
-    private var urlTitle: TextView? = null
-    private var urlDescText: TextView? = null
-    private var urlText: TextView? = null
+    private var loadedPreview : WebPreview? = null
+    private val urlPreviewLayout: CardView by lazy { findViewById<View>(R.id.url_preview_layout) as CardView }
+    private val urlImgView: ImageView by lazy{ findViewById<View>(R.id.item_url_img) as ImageView}
+    private val urlTitle: TextView by lazy{findViewById<View>(R.id.item_url_title_text) as TextView}
+    private val urlDescText: TextView by lazy{findViewById<View>(R.id.item_url_content_desc) as TextView}
+    private val urlText: TextView by lazy{findViewById<View>(R.id.item_url_text) as TextView}
+    private val progressBar : ProgressBar by lazy{findViewById(R.id.url_preview_progress_bar) as ProgressBar}
 
-    private var mainUrl: String? = null
-
+    private var tag: String? = null
     private var isDefaultClick = true
-
     private var urlPreviewerListener: UrlPreviewerListener? = null
-
-
 
     override fun onFinishInflate() {
         super.onFinishInflate()
     }
 
+    init {
+        LayoutInflater.from(context).inflate(R.layout.item_url_preview, this, true)
+    }
 
-    fun setupView() {
-        View.inflate(context, R.layout.item_url_preview, this)
-        urlPreviewerLayout = findViewById<View>(R.id.url_preview_layout) as RelativeLayout
-        urlImgView = findViewById<View>(R.id.item_url_img) as ImageView
-        urlTitle = findViewById<View>(R.id.item_url_title_text) as TextView
-        urlText = findViewById<View>(R.id.item_url_text) as TextView
-        urlDescText = findViewById<View>(R.id.item_url_content_desc) as TextView
 
-        if (urlMetaData?.imageUrl!!.isEmpty()) {
-            urlImgView?.visibility = View.GONE
+    fun setupView(webPreview: WebPreview) {
+        if (tag != webPreview.url) {
+                return
+        }
+        loadedPreview = webPreview
+        progressBar.visibility = View.GONE
+        //urlText!!.text = webPreview.url
+        if (webPreview.title!!.isEmpty()) {
+            urlTitle.visibility = View.GONE
         } else {
-            urlImgView?.visibility = View.VISIBLE
+            urlTitle.visibility = View.VISIBLE
+            urlTitle.text = webPreview.title
+        }
+
+
+
+        if (webPreview.imageUrl!!.isEmpty()) {
+            urlImgView.visibility = View.GONE
+        } else {
+            urlImgView.visibility = View.VISIBLE
             Picasso.get()
-                .load(urlMetaData?.imageUrl)
+                .load(webPreview.imageUrl)
                 .into(urlImgView)
         }
-        if (urlMetaData?.title!!.isEmpty()) {
-            urlTitle?.visibility = View.GONE
+
+        if (webPreview.description!!.isEmpty()) {
+            urlDescText.visibility = View.GONE
         } else {
-            urlTitle?.visibility = View.VISIBLE
-            urlTitle?.text = urlMetaData?.title
+            urlDescText.visibility = View.VISIBLE
+            urlDescText.text = webPreview.description
         }
-        if (urlMetaData?.url!!.isEmpty()) {
-            urlText?.visibility = View.GONE
-        } else {
-            urlText?.visibility = View.VISIBLE
-            urlText?.text = urlMetaData?.url
-        }
-        if (urlMetaData?.description!!.isEmpty()) {
-            urlDescText!!.visibility = View.GONE
-        } else {
-            urlDescText!!.visibility = View.VISIBLE
-            urlDescText?.text = urlMetaData?.description
-        }
-        urlPreviewerLayout!!.setOnClickListener { view ->
-            if (isDefaultClick) {
+
+        urlPreviewLayout.setOnClickListener { view ->
+            if (urlPreviewerListener != null)
+                urlPreviewerListener?.onClicked(view, webPreview)
+            else
                 onUrlPreviewClick()
-            } else {
-                if (urlPreviewerListener != null)
-                    urlPreviewerListener?.onClicked(view, urlMetaData)
-                else
-                    onUrlPreviewClick()
-            }
         }
     }
 
 
     private fun onUrlPreviewClick() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mainUrl))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tag))
         context!!.startActivity(intent)
     }
 
-
-
     fun setUrl(url: String?, previewListener: PreviewListener) {
-        mainUrl = url
-        val urlPreview = UrlPreviewer(object : ResponseListener {
-            override fun onData(metaData: UrlMetaData?) {
-                urlMetaData = metaData
-                if (urlMetaData?.title!!.isNotEmpty()){
-                    metaData?.let {
+        tag = url
+        urlText.text = url;
+        if (loadedPreview != null){
+            setupView(loadedPreview!!)
+            return
+        }
+
+        val urlPreviewer = UrlPreviewer(object : ResponseListener {
+            override fun onData(metaData: WebPreview?) {
+                if (metaData?.title!!.isNotEmpty()){
+                    metaData.let {
                         previewListener.onSuccess(it,true) }
                 }
-                setupView()
+                setupView(metaData)
             }
 
             override fun onError(e: Exception?) {
                 previewListener.onError(e)
+                progressBar.visibility = View.GONE
             }
         })
-        urlPreview.getPreview(url)
+        urlPreviewer.getPreview(url)
     }
 
     private fun findLinearLayoutChild(): LinearLayout? {
         return if (childCount > 0 && getChildAt(0) is LinearLayout) {
             getChildAt(0) as LinearLayout
         } else null
+    }
+
+    fun clear() {
+
+        urlImgView.visibility = View.GONE
+        //progressBar.visibility = View.GONE
+
+        urlTitle.text = ""
+        urlDescText.text = ""
+
+
+        setOnClickListener { }
+        setOnLongClickListener { true }
+        loadedPreview = null
+        tag = ""
     }
 
 
