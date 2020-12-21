@@ -45,26 +45,28 @@
                 android:id="@+id/item_url_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/item_url_img"
                 android:layout_margin="@dimen/spacing_small"
                 android:padding="@dimen/spacing_small"
                 android:text="Title"
                 android:textStyle="bold"
                 android:textSize="@dimen/font_normal"
-                android:visibility="visible"
-                android:layout_toEndOf="@id/item_url_img"/>
+                android:visibility="invisible"
+                />
 
             <TextView
                 android:id="@+id/item_url_content_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/item_url_img"
                 android:layout_below="@id/item_url_title_text"
                 android:layout_margin="@dimen/spacing_small"
-                android:layout_toEndOf="@id/item_url_img"
+
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/link_desc_hint"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
         </RelativeLayout>
 
