@@ -1,43 +1,37 @@
 package com.soufianekre.urlpreviewer
 
 import android.os.AsyncTask
+import android.util.Log
 import android.webkit.URLUtil
-import com.soufianekre.urlpreviewer.data.WebPreview
+import com.soufianekre.urlpreviewer.data.UrlPreviewItem
 import com.soufianekre.urlpreviewer.listeners.ResponseListener
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
 import java.net.URI
 import java.net.URISyntaxException
-import java.net.URL
 
 
-internal class UrlPreviewer(var responseListener: ResponseListener?) {
-
-
-    fun getPreview(url: String?) {
-        UrlDataAsync(url!!, responseListener).execute()
-    }
+internal class UrlPreviewHelper() {
 
 
     companion object {
-        public class UrlDataAsync(
+
+        fun getPreview(url: String?,responseListener: ResponseListener?) {
+            UrlDataAsync(url!!, responseListener).execute()
+        }
+        class UrlDataAsync(
             private val url: String,
-            private val responseListener: ResponseListener?
-        ) :
-            AsyncTask<Void?, Void?, WebPreview>() {
+            private val responseListener: ResponseListener?) :
+            AsyncTask<Void?, Void?, UrlPreviewItem>() {
 
             override fun onPreExecute() {
                 super.onPreExecute()
 
             }
 
-            override fun doInBackground(vararg params: Void?): WebPreview {
+            override fun doInBackground(vararg params: Void?): UrlPreviewItem {
                 try {
                     var startTime: Long = System.currentTimeMillis()
 
@@ -47,18 +41,21 @@ internal class UrlPreviewer(var responseListener: ResponseListener?) {
                         .timeout(30 * 1000)
                         .get()
 
+
                     if (doc == null) {
-                        return WebPreview(url, "", "", "", "", "", "")
+                        return UrlPreviewItem(url, "", "", "", "", "", "")
                     }
 
                     val title: String = getTitle(doc)
                     val imageUrl: String = getImageUrl(doc)
                     val desc: String = getDesc(doc)
 
-                    return WebPreview(url, title, desc, imageUrl, "", "", "")
+
+
+                    return UrlPreviewItem(url, title, desc, imageUrl, "", "", "")
 
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    Log.e("Async WebPreview ",e.localizedMessage);
                     /*
                     responseListener?.onError(
                         Exception(
@@ -68,7 +65,7 @@ internal class UrlPreviewer(var responseListener: ResponseListener?) {
                     )
 
                      */
-                    return WebPreview(url, "", "", "", "", "", "")
+                    return UrlPreviewItem(url, "", "", "", "", "", "")
                 }
             }
 
@@ -77,9 +74,9 @@ internal class UrlPreviewer(var responseListener: ResponseListener?) {
                 responseListener?.onError(Exception("Error , Data Fetching has been canceled ."))
             }
 
-            override fun onPostExecute(result: WebPreview?) {
+            override fun onPostExecute(result: UrlPreviewItem?) {
                 super.onPostExecute(result)
-                responseListener?.onData(result)
+                responseListener?.onResponse(result)
             }
 
             private fun getTitle(doc: Document): String {

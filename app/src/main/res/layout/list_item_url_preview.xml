@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:layout_margin="10dp">
 
-    <com.soufianekre.urlpreviewer.views.UrlPreviewItemView
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_small"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_small"
+        app:cardElevation="@dimen/spacing_tiny"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/list_item_url_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Url example : www.google.com"
+            android:textSize="@dimen/font_normal"
+            android:layout_margin="@dimen/spacing_small"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <com.soufianekre.urlpreviewer.views.UrlPreviewCard
         android:id="@+id/item_url_preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

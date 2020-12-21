@@ -1,14 +1,17 @@
 package com.soufianekre.urlpreviewersample.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+import com.soufianekre.urlpreviewer.data.UrlPreviewItem
+import com.soufianekre.urlpreviewer.views.UrlPreviewCard
 import com.soufianekre.urlpreviewersample.R
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),UrlPreviewCard.OnPreviewLoad {
 
     var urlList: ArrayList<String> = ArrayList();
     lateinit var urlPreviewAdapter: UrlPreviewAdapter
@@ -26,9 +29,7 @@ class MainActivity : AppCompatActivity() {
         urlList.add("https://pomodoro-tracker.com/#")
         urlList.add("https://developer.android.com/studio")
         urlList.add("https://github.com/SoufianeKreX/UrlPreviewer")
-        urlList.add("https://www.youtube.com/watch?v=ni2uij7PynU&list=RDni2uij7PynU&start_radio=1")
 
-        links_recycler_view.setHasFixedSize(true)
         links_recycler_view.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         urlPreviewAdapter = UrlPreviewAdapter(this, urlList)
         links_recycler_view.adapter = urlPreviewAdapter
@@ -46,11 +47,12 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-
     private fun setupUi() {
-        add_url_btn.setOnClickListener {
-            urlList.add(add_url_field.text.toString())
-            urlPreviewAdapter.notifyItemInserted(urlPreviewAdapter.itemCount)
-        }
+        setSupportActionBar(main_toolbar)
+        single_url_preview_card.setUrl("https://www.youtube.com/watch?v=ni2uij7PynU&list=RDni2uij7PynU&start_radio=1",this)
+    }
+
+    override fun onLinkLoaded(url: String, urlPreview: UrlPreviewItem) {
+        Toast.makeText(this, "The preview is visible for $url",Toast.LENGTH_SHORT).show()
     }
 }

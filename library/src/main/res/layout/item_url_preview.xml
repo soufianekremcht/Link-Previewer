@@ -11,24 +11,36 @@
     app:cardElevation="@dimen/spacing_tiny"
     android:focusable="true">
 
+    <ProgressBar
+        android:id="@+id/url_preview_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/spacing_small"
+        android:visibility="visible"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/item_url_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_small"
-            android:padding="@dimen/spacing_small"
-            android:text="URL"
-            android:textSize="@dimen/font_normal"/>
-
         <RelativeLayout
             android:id="@+id/url_info_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+
+            <ImageView
+                android:id="@+id/item_url_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_margin="@dimen/spacing_normal"
+                android:visibility="visible"
+                android:scaleType="centerCrop"
+                />
+
             <TextView
                 android:id="@+id/item_url_title_text"
                 android:layout_width="wrap_content"
@@ -38,29 +50,8 @@
                 android:text="Title"
                 android:textStyle="bold"
                 android:textSize="@dimen/font_normal"
-                android:visibility="gone"/>
-
-            <ImageView
-                android:id="@+id/item_url_options"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/spacing_small"
-                android:layout_margin="@dimen/spacing_small"
-                android:src="@drawable/ic_more_black"
-                style="@style/style_url_icon"
-                android:visibility="gone"/>
-
-            <ImageView
-                android:id="@+id/item_url_img"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_below="@id/item_url_title_text"
-                android:layout_alignParentStart="true"
-                android:layout_margin="@dimen/spacing_small"
-                android:visibility="gone"
-                android:contentDescription="Url Description Img" />
+                android:visibility="visible"
+                android:layout_toEndOf="@id/item_url_img"/>
 
             <TextView
                 android:id="@+id/item_url_content_desc"
@@ -68,23 +59,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_url_title_text"
                 android:layout_margin="@dimen/spacing_small"
-                android:layout_toStartOf="@id/item_url_options"
                 android:layout_toEndOf="@id/item_url_img"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/link_desc_hint"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
         </RelativeLayout>
 
-        <ProgressBar
-            android:id="@+id/url_preview_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="@dimen/spacing_small"
-            android:visibility="visible"/>
+
 
 
     </LinearLayout>

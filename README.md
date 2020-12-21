@@ -26,7 +26,7 @@ Add this to your module build gradle file
 
 ~~~gradle
 dependencies {
-	implementation 'com.github.SoufianeKreX:UrlPreviewer:0.0.1'
+	implementation "com.github.SoufianeKreX:UrlPreviewer:" + version
 }
 ~~~
 
@@ -43,7 +43,7 @@ dependencies {
 
 ~~~kotlin
 urlPreviewView.setUrl(url,object : PreviewListener {
-            override fun onSuccess(metadata: UrlMetaData, status: Boolean) {
+            override fun onSuccess(metadata: WebPreview, status: Boolean) {
                 Toast.makeText(context,
                     "The preview Is Working", Toast.LENGTH_LONG).show()
             }
@@ -57,4 +57,8 @@ urlPreviewView.setUrl(url,object : PreviewListener {
 ~~~
 #### That is it . you can now see your Url Preview as CardView
 
-### Getting Url Data and Implementing a your Custom View  (Not yet)
+### Implementing Url Preview in RecyclerView   
+
+~~~kotlin
+
+~~~
