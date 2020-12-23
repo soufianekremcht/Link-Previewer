@@ -49,7 +49,7 @@ Add the following code to your class
 
 ~~~kotlin
 urlPreviewCard.setUrl(url,object : UrlPreviewCard.OnPreviewLoad {
-            override fun onLinkLoaded(url:String,urlPreview: UrlPreview) {
+            override fun onLinkLoaded(url:String,urlPreview: UrlPreviewItem) {
                 Toast.makeText(context,
                     "The preview Is Working", Toast.LENGTH_LONG).show()
             }
