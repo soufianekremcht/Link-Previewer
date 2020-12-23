@@ -37,14 +37,14 @@ dependencies {
 
 ## The Usage
 
-##### Add the view to xml Layout 
+Add the view to xml Layout 
 
 ~~~xml
 <com.soufianekre.urlpreviewer.views.UrlPreviewItemView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 ~~~
-##### Add the following code to your kotlin class
+Add the following code to your class
 
 ~~~kotlin
 urlPreviewView.setUrl(url,object : PreviewListener {
@@ -64,9 +64,9 @@ urlPreviewView.setUrl(url,object : PreviewListener {
 
 ## Implementing Url Preview in RecyclerView 
   
-##### It is Quite Simple just Your List item View in your xml Layout
+It is Quite Simple just Your List item View in your xml Layout
 
-list_item_url_preview.xml
+##### list_item_url_preview.xml
 ~~~xml
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -104,7 +104,7 @@ list_item_url_preview.xml
 </LinearLayout>
 
 ~~~
-AdapterViewHolder
+##### AdapterViewHolder.kt
 ~~~kotlin
 
 class UrlPreviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -117,9 +117,9 @@ class UrlPreviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 }
 ~~~
 
-##### Make Your Adapter Implementation Looks Like this :
+Make Your Adapter Implementation Looks Like this :
 
-UrlPreviewAdapter.kt
+##### UrlPreviewAdapter.kt
 ~~~kotlin
 class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
     RecyclerView.Adapter<UrlPreviewViewHolder>(),UrlPreviewCard.OnPreviewLoad {
