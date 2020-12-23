@@ -5,15 +5,19 @@ URL Previewer Library For Android built in Kotlin.
 
 [![](https://jitpack.io/v/SoufianeKreX/UrlPreviewer.svg)](https://jitpack.io/#SoufianeKreX/UrlPreviewer)
 
+---
+
 ### Still In Development . It not Working For The current Moment
 ### I Welcome Anyone who can help add Improvement on this project.
 
 
+---
+
 ## Gradle Dependency
 
-for android studio 3.x
+For android studio 3.x :
 
-add this to app level build gradle file
+Add this to app level build gradle file
 
 ~~~gradle
 allprojects {
@@ -28,7 +32,7 @@ Add this to your module build gradle file
 
 ~~~gradle
 dependencies {
-	implementation "com.github.SoufianeKreX:UrlPreviewer:" + version
+	implementation "com.github.SoufianeKreX:UrlPreviewer:" + library_version
 }
 ~~~
 
@@ -61,7 +65,7 @@ urlPreviewView.setUrl(url,object : PreviewListener {
 
 ### Implementing Url Preview in RecyclerView 
   
-It is Quite Simple just Your List item View 
+It is Quite Simple just Your List item View in your xml Layout
 
 list_item_url_preview.xml
 ~~~xml
@@ -118,7 +122,6 @@ Make Your Adapter Implementation Looks Like this :
 
 UrlPreviewAdapter.kt
 ~~~kotlin
-
 class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
     RecyclerView.Adapter<UrlPreviewViewHolder>(),UrlPreviewCard.OnPreviewLoad {
 
@@ -143,7 +146,7 @@ class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
         linkToLoad = url;
 
         if (linkToLoad != null){
-            if (!tryImmediateWebPageLoad(holder,url)){
+            if (!tryImmediatePreviewLoad(holder,url)){
                 holder.urlPreviewView.setUrl(url,this);
             }
         }
@@ -154,7 +157,7 @@ class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
         webPreviews[url] = urlPreview
     }
 
-    private fun tryImmediateWebPageLoad(holder: UrlPreviewViewHolder, url: String): Boolean {
+    private fun tryImmediatePreviewLoad(holder: UrlPreviewViewHolder, url: String): Boolean {
         return if (webPreviews.containsKey(url)) {
             holder.urlPreviewView.tag = url
             holder.urlPreviewView.displayPreview(webPreviews[url]!!)
@@ -163,9 +166,7 @@ class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
             false
         }
     }
+}
 ~~~
 
 Check The sample App if you want To learn More about this part.
-
-
-###License 
