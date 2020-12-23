@@ -18,38 +18,44 @@
             />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/add_url_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textUri"
-        android:hint="Add an URL"
-        android:layout_margin="@dimen/spacing_small"/>
 
-
-    <Button
-        android:id="@+id/add_url_btn"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
+    <TextView
+        android:id="@+id/single_url_preview_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add URL"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Single Url Preview "
+        android:textSize="@dimen/font_large"
+        android:padding="@dimen/spacing_normal"/>
+
+    <com.soufianekre.urlpreviewer.views.UrlPreviewCard
+        android:id="@+id/single_url_preview_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_normal"
+        android:padding="@dimen/spacing_normal"/>
+
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sample Test of The Library"
-        android:textSize="20sp"
+        android:text="Sample Url Preview ib Recycler View"
+        android:padding="@dimen/spacing_normal"
+        android:layout_margin="@dimen/spacing_small"
+        android:textSize="@dimen/font_large"
         android:layout_gravity="center"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/links_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/links_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </LinearLayout>

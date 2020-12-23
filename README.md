@@ -1,17 +1,23 @@
+
+
 # Url Previewer
 URL Previewer Library For Android built in Kotlin.
 
 [![](https://jitpack.io/v/SoufianeKreX/UrlPreviewer.svg)](https://jitpack.io/#SoufianeKreX/UrlPreviewer)
 
+---
+
 ### Still In Development . It not Working For The current Moment
 ### I Welcome Anyone who can help add Improvement on this project.
 
 
+---
+
 ## Gradle Dependency
 
-for android studio 3.x
+For android studio 3.x :
 
-add this to app level build gradle file
+Add this to app level build gradle file
 
 ~~~gradle
 allprojects {
@@ -31,5 +37,136 @@ dependencies {
 ~~~
 
 ## The Usage
-## (Not Yet).
 
+##### Add the view to xml Layout 
+
+~~~xml
+<com.soufianekre.urlpreviewer.views.UrlPreviewItemView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+~~~
+##### Add the following code to your kotlin class
+
+~~~kotlin
+urlPreviewView.setUrl(url,object : PreviewListener {
+            override fun onSuccess(metadata: WebPreview, status: Boolean) {
+                Toast.makeText(context,
+                    "The preview Is Working", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onError(e: Exception?) {
+                Toast.makeText(context,
+                    "Preview Error" + e?.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+
+        })
+~~~
+#### That is it . you can now see your Url Preview as CardView
+
+### Implementing Url Preview in RecyclerView 
+  
+It is Quite Simple just Your List item View in your xml Layout
+
+list_item_url_preview.xml
+~~~xml
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_margin="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_small"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_small"
+        app:cardElevation="@dimen/spacing_tiny"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/list_item_url_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Url example : www.google.com"
+            android:textSize="@dimen/font_normal"
+            android:layout_margin="@dimen/spacing_small"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <com.soufianekre.urlpreviewer.views.UrlPreviewCard
+        android:id="@+id/item_url_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+~~~
+AdapterViewHolder
+~~~kotlin
+
+class UrlPreviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    val url_text : TextView = itemView.findViewById(R.id.list_item_url_text)
+    val urlPreviewView: UrlPreviewCard = itemView.findViewById<UrlPreviewCard>(R.id.item_url_preview)
+
+    init {
+
+    }
+}
+~~~
+
+Make Your Adapter Implementation Looks Like this :
+
+UrlPreviewAdapter.kt
+~~~kotlin
+class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
+    RecyclerView.Adapter<UrlPreviewViewHolder>(),UrlPreviewCard.OnPreviewLoad {
+
+    var webPreviews: HashMap<String, UrlPreviewItem> = HashMap()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UrlPreviewViewHolder {
+        val root =
+            LayoutInflater.from(context).inflate(R.layout.list_item_url_preview, parent, false)
+        return UrlPreviewViewHolder(root)
+    }
+
+    override fun getItemCount(): Int = urlList.size
+
+    override fun onBindViewHolder(holder: UrlPreviewViewHolder, position: Int) {
+        val url = urlList[position]
+
+        holder.urlPreviewView.clear()
+        holder.url_text.text = url
+        var linkToLoad : String? = null;
+        // TODO : Check The link if it is valid
+
+        linkToLoad = url;
+
+        if (linkToLoad != null){
+            if (!tryImmediatePreviewLoad(holder,url)){
+                holder.urlPreviewView.setUrl(url,this);
+            }
+        }
+
+    }
+
+    override fun onLinkLoaded(url: String, urlPreview: UrlPreviewItem) {
+        webPreviews[url] = urlPreview
+    }
+
+    private fun tryImmediatePreviewLoad(holder: UrlPreviewViewHolder, url: String): Boolean {
+        return if (webPreviews.containsKey(url)) {
+            holder.urlPreviewView.tag = url
+            holder.urlPreviewView.displayPreview(webPreviews[url]!!)
+            true
+        } else {
+            false
+        }
+    }
+}
+~~~
+
+Check The sample App if you want To learn More about this part.
