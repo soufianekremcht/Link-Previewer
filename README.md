@@ -40,24 +40,19 @@ dependencies {
 Add the view to xml Layout 
 
 ~~~xml
-<com.soufianekre.urlpreviewer.views.UrlPreviewItemView
+<com.soufianekre.urlpreviewer.views.UrlPreviewCard
+	android:id="@+id/urlPreviewCard"					   
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 ~~~
 Add the following code to your class
 
 ~~~kotlin
-urlPreviewView.setUrl(url,object : PreviewListener {
-            override fun onSuccess(metadata: WebPreview, status: Boolean) {
+urlPreviewCard.setUrl(url,object : UrlPreviewCard.OnPreviewLoad {
+            override fun onLinkLoaded(url:String,urlPreview: UrlPreviewItem) {
                 Toast.makeText(context,
                     "The preview Is Working", Toast.LENGTH_LONG).show()
             }
-
-            override fun onError(e: Exception?) {
-                Toast.makeText(context,
-                    "Preview Error" + e?.localizedMessage, Toast.LENGTH_LONG).show()
-            }
-
         })
 ~~~
 #### That is it. you can now see your Url Preview as CardView.
