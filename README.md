@@ -32,7 +32,7 @@ Add this to your module build gradle file
 
 ~~~gradle
 dependencies {
-	implementation "com.github.SoufianeKreX:UrlPreviewer:" + library_version
+	    implementation "com.github.SoufianeKreX:UrlPreviewer:" + library_version
 }
 ~~~
 
