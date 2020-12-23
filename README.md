@@ -1,15 +1,14 @@
 
 
-# Url Previewer
+# URL Previewer
+
 URL Previewer Library For Android built in Kotlin.
+The library show use a Preview for any link like WhatsApp Chat Link Preview .
 
 [![](https://jitpack.io/v/SoufianeKreX/UrlPreviewer.svg)](https://jitpack.io/#SoufianeKreX/UrlPreviewer)
 
 ---
-
-### Still In Development . It not Working For The current Moment
 ### I Welcome Anyone who can help add Improvement on this project.
-
 
 ---
 
@@ -17,7 +16,7 @@ URL Previewer Library For Android built in Kotlin.
 
 For android studio 3.x :
 
-Add this to app level build gradle file
+##### Add this to app level build gradle file
 
 ~~~gradle
 allprojects {
@@ -28,11 +27,11 @@ allprojects {
 }
 ~~~
 
-Add this to your module build gradle file
+##### Add this to your module build gradle file
 
 ~~~gradle
 dependencies {
-	implementation 'com.github.SoufianeKreX:UrlPreviewer:' + library_version
+	implementation "com.github.SoufianeKreX:UrlPreviewer:" + library_version
 }
 ~~~
 
@@ -61,11 +60,11 @@ urlPreviewView.setUrl(url,object : PreviewListener {
 
         })
 ~~~
-#### That is it . you can now see your Url Preview as CardView
+#### That is it. you can now see your Url Preview as CardView.
 
 ## Implementing Url Preview in RecyclerView 
   
-It is Quite Simple just Your List item View in your xml Layout
+##### It is Quite Simple just Your List item View in your xml Layout
 
 list_item_url_preview.xml
 ~~~xml
@@ -118,7 +117,7 @@ class UrlPreviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 }
 ~~~
 
-Make Your Adapter Implementation Looks Like this :
+##### Make Your Adapter Implementation Looks Like this :
 
 UrlPreviewAdapter.kt
 ~~~kotlin
@@ -169,4 +168,4 @@ class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
 }
 ~~~
 
-Check The sample App if you want To learn More about this part.
+##### Check The sample App if you want To learn More about this part.
