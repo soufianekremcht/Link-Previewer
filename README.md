@@ -63,7 +63,7 @@ urlPreviewView.setUrl(url,object : PreviewListener {
 ~~~
 #### That is it . you can now see your Url Preview as CardView
 
-### Implementing Url Preview in RecyclerView 
+## Implementing Url Preview in RecyclerView 
   
 It is Quite Simple just Your List item View in your xml Layout
 
