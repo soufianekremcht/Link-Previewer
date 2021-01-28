@@ -1,6 +1,6 @@
 
 
-# URL Previewer
+# Link Previewer
 
 URL Previewer Library For Android built in Kotlin.
 The library show a Preview for any link like WhatsApp Chat Link Preview .
