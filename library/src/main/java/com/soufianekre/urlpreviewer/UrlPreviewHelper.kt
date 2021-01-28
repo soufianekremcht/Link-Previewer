@@ -34,8 +34,6 @@ internal class UrlPreviewHelper() {
             override fun doInBackground(vararg params: Void?): UrlPreviewItem {
                 try {
                     var startTime: Long = System.currentTimeMillis()
-
-
                     var doc: Document? = null
                     doc = Jsoup.connect(url)
                         .timeout(30 * 1000)
@@ -43,7 +41,8 @@ internal class UrlPreviewHelper() {
 
 
                     if (doc == null) {
-                        return UrlPreviewItem(url, "", "", "", "", "", "")
+                        return UrlPreviewItem(url, "", "",
+                            "", "", "", "")
                     }
 
                     val title: String = getTitle(doc)

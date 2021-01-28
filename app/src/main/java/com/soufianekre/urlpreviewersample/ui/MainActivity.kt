@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(),UrlPreviewCard.OnPreviewLoad {
         urlList.add("https://developer.android.com/studio")
         urlList.add("https://github.com/SoufianeKreX/UrlPreviewer")
 
+
         links_recycler_view.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         urlPreviewAdapter = UrlPreviewAdapter(this, urlList)
         links_recycler_view.adapter = urlPreviewAdapter

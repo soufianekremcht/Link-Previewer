@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView
 import com.soufianekre.urlpreviewer.R
 import com.soufianekre.urlpreviewer.UrlPreviewHelper
 import com.soufianekre.urlpreviewer.data.UrlPreviewItem
+import com.soufianekre.urlpreviewer.helpers.NetworkUtils
 import com.soufianekre.urlpreviewer.listeners.ResponseListener
 import com.soufianekre.urlpreviewer.listeners.UrlPreviewerListener
 import com.squareup.picasso.Picasso
@@ -48,29 +49,31 @@ public class UrlPreviewCard(context: Context, attrs: AttributeSet?) : CardView(c
         // Reduce Data Usage
         // Optimize for performance
 
-
         tag = url
         if (loadedPreview != null) {
             displayPreview(loadedPreview!!)
             return
         }
-
         progressBar.visibility = View.VISIBLE
-
         // get current url preview
-        UrlPreviewHelper.getPreview(url, object : ResponseListener {
-            override fun onResponse(urlPreview: UrlPreviewItem?) {
+        if (NetworkUtils.isInternetAvailable(context)){
+            UrlPreviewHelper.getPreview(url, object : ResponseListener {
+                override fun onResponse(urlPreview: UrlPreviewItem?) {
 
-                listener?.onLinkLoaded(url!!, urlPreview!!)
-                displayPreview(urlPreview!!)
-            }
+                    listener?.onLinkLoaded(url!!, urlPreview!!)
+                    displayPreview(urlPreview!!)
+                }
 
-            override fun onError(e: Exception?) {
-                //previewListener.onError(e)
-                Log.e("UrlPreviewCard", e?.message)
-                progressBar.visibility = View.GONE
-            }
-        })
+                override fun onError(e: Exception?) {
+                    //previewListener.onError(e)
+                    Log.e("UrlPreviewCard", e?.message)
+                    progressBar.visibility = View.GONE
+                }
+            })
+        }else{
+            progressBar.visibility = View.GONE
+        }
+
     }
 
 
