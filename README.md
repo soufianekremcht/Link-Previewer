@@ -31,7 +31,7 @@ allprojects {
 
 ~~~gradle
 dependencies {
-	implementation "com.github.SoufianeKreX:Link-Previewer:" + library_version
+	implementation "com.github.SoufianeKreX:Link-Previewer:1.0.1"
 }
 ~~~
 
