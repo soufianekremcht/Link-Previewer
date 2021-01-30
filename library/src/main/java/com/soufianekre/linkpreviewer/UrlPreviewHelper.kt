@@ -1,6 +1,8 @@
 package com.soufianekre.linkpreviewer
 
 import android.os.AsyncTask
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.webkit.URLUtil
 import com.soufianekre.linkpreviewer.data.UrlPreviewItem
@@ -39,18 +41,25 @@ internal class UrlPreviewHelper() {
                 try {
                     val startTime: Long = System.currentTimeMillis()
                     val okHttpClient = OkHttpClient.Builder()
-                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .connectTimeout(30, TimeUnit.SECONDS)
                         .writeTimeout(10, TimeUnit.SECONDS)
-                        .readTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(30, TimeUnit.SECONDS)
                         .build();   // socket timeout
 
                     val request: Request = Request.Builder().url(url).get().build()
                     val doc = Jsoup.parse(okHttpClient.newCall(request).execute().body()!!.string())
-                    val finishTime : Long = System.currentTimeMillis()
+                    val finishTime: Long = System.currentTimeMillis()
 
                     //val document = Jsoup.connect(url).timeout(10*1000).get()
 
-                    Log.e("UrlPreviewHelper",String.format("Link Parsing Time :v%l ",finishTime - startTime) )
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.post {
+                        Log.e(
+                            "UrlPreviewHelper",
+                            "Link Parsing Time :  ${finishTime - startTime}"
+                        )
+                    }
+
 
                     if (doc == null) {
                         return UrlPreviewItem(
@@ -68,7 +77,6 @@ internal class UrlPreviewHelper() {
                     val favicon: String = getFavIcon(doc)
 
                     return UrlPreviewItem(url, title, desc, imageUrl, siteName, mediaType, favicon)
-
                 } catch (e: IOException) {
                     Log.e("UrlPreviewHelper ", e.localizedMessage);
                     /*
