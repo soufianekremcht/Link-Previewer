@@ -1,13 +1,12 @@
-package com.soufianekre.urlpreviewersample.ui
+package com.soufianekre.linkpreviewersample.ui
 
 import android.content.Context
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.soufianekre.urlpreviewer.data.UrlPreviewItem
-import com.soufianekre.urlpreviewer.views.UrlPreviewCard
-import com.soufianekre.urlpreviewersample.R
+import com.soufianekre.linkpreviewer.data.UrlPreviewItem
+import com.soufianekre.linkpreviewer.views.UrlPreviewCard
+import com.soufianekre.linkpreviewersample.R
 
 
 class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :

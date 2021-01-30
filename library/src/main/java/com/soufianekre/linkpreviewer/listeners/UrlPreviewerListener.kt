@@ -1,7 +1,7 @@
-package com.soufianekre.urlpreviewer.listeners
+package com.soufianekre.linkpreviewer.listeners
 
 import android.view.View
-import com.soufianekre.urlpreviewer.data.UrlPreviewItem
+import com.soufianekre.linkpreviewer.data.UrlPreviewItem
 
 
 

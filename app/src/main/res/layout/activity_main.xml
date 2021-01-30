@@ -28,7 +28,7 @@
         android:textSize="@dimen/font_large"
         android:padding="@dimen/spacing_normal"/>
 
-    <com.soufianekre.urlpreviewer.views.UrlPreviewCard
+    <com.soufianekre.linkpreviewer.views.UrlPreviewCard
         android:id="@+id/single_url_preview_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

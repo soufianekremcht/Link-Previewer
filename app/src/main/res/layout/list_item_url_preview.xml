@@ -27,7 +27,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.soufianekre.urlpreviewer.views.UrlPreviewCard
+    <com.soufianekre.linkpreviewer.views.UrlPreviewCard
         android:id="@+id/item_url_preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

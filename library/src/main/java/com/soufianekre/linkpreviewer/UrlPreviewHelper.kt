@@ -1,16 +1,21 @@
-package com.soufianekre.urlpreviewer
+package com.soufianekre.linkpreviewer
 
 import android.os.AsyncTask
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.webkit.URLUtil
-import com.soufianekre.urlpreviewer.data.UrlPreviewItem
-import com.soufianekre.urlpreviewer.listeners.ResponseListener
+import com.soufianekre.linkpreviewer.data.UrlPreviewItem
+import com.soufianekre.linkpreviewer.listeners.ResponseListener
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import java.io.IOException
 import java.net.URI
 import java.net.URISyntaxException
+import java.util.concurrent.TimeUnit
 
 
 internal class UrlPreviewHelper() {
@@ -18,13 +23,14 @@ internal class UrlPreviewHelper() {
 
     companion object {
 
-        fun getPreview(url: String?,responseListener: ResponseListener?) {
+        fun getPreview(url: String?, responseListener: ResponseListener?) {
             UrlDataAsync(url!!, responseListener).execute()
         }
+
         class UrlDataAsync(
             private val url: String,
-            private val responseListener: ResponseListener?) :
-            AsyncTask<Void?, Void?, UrlPreviewItem>() {
+            private val responseListener: ResponseListener?
+        ) : AsyncTask<Void?, Void?, UrlPreviewItem>() {
 
             override fun onPreExecute() {
                 super.onPreExecute()
@@ -33,29 +39,46 @@ internal class UrlPreviewHelper() {
 
             override fun doInBackground(vararg params: Void?): UrlPreviewItem {
                 try {
-                    var startTime: Long = System.currentTimeMillis()
+                    val startTime: Long = System.currentTimeMillis()
+                    val okHttpClient = OkHttpClient.Builder()
+                        .connectTimeout(30, TimeUnit.SECONDS)
+                        .writeTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(30, TimeUnit.SECONDS)
+                        .build();   // socket timeout
 
+                    val request: Request = Request.Builder().url(url).get().build()
+                    val doc = Jsoup.parse(okHttpClient.newCall(request).execute().body()!!.string())
+                    val finishTime: Long = System.currentTimeMillis()
 
-                    var doc: Document? = null
-                    doc = Jsoup.connect(url)
-                        .timeout(30 * 1000)
-                        .get()
+                    //val document = Jsoup.connect(url).timeout(10*1000).get()
+
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.post {
+                        Log.e(
+                            "UrlPreviewHelper",
+                            "Link Parsing Time :  ${finishTime - startTime}"
+                        )
+                    }
 
 
                     if (doc == null) {
-                        return UrlPreviewItem(url, "", "", "", "", "", "")
+                        return UrlPreviewItem(
+                            url, "", "",
+                            "", "", "", ""
+                        )
                     }
+
 
                     val title: String = getTitle(doc)
                     val imageUrl: String = getImageUrl(doc)
                     val desc: String = getDesc(doc)
+                    val mediaType: String = getMediaType(doc)
+                    val siteName: String = getSiteName(doc)
+                    val favicon: String = getFavIcon(doc)
 
-
-
-                    return UrlPreviewItem(url, title, desc, imageUrl, "", "", "")
-
+                    return UrlPreviewItem(url, title, desc, imageUrl, siteName, mediaType, favicon)
                 } catch (e: IOException) {
-                    Log.e("Async WebPreview ",e.localizedMessage);
+                    Log.e("UrlPreviewHelper ", e.localizedMessage);
                     /*
                     responseListener?.onError(
                         Exception(
@@ -71,13 +94,15 @@ internal class UrlPreviewHelper() {
 
             override fun onCancelled() {
                 super.onCancelled()
-                responseListener?.onError(Exception("Error , Data Fetching has been canceled ."))
+                responseListener?.onError(Exception("Error , Link Data Fetching has been canceled ."))
             }
 
             override fun onPostExecute(result: UrlPreviewItem?) {
                 super.onPostExecute(result)
                 responseListener?.onResponse(result)
             }
+
+            //
 
             private fun getTitle(doc: Document): String {
                 // Url title
@@ -138,7 +163,7 @@ internal class UrlPreviewHelper() {
 
             private fun getMediaType(doc: Document): String {
 
-                var mediaType: String = "";
+                var mediaType = "";
                 val mediaTypes: Elements = doc.select("meta[name=medium]")
                 var type = ""
                 type = if (mediaTypes.size > 0) {
@@ -169,7 +194,7 @@ internal class UrlPreviewHelper() {
             }
 
             private fun getSiteName(doc: Document): String {
-                var siteName: String = "";
+                var siteName = "";
                 val elements: Elements = doc.getElementsByTag("meta")
                 for (element in elements) {
                     if (element.hasAttr("property")) {
@@ -178,7 +203,6 @@ internal class UrlPreviewHelper() {
                         if (strProperty == "og:url") {
                             .url = element.attr("content").toString()
                         }
-
                          */
                         if (strProperty == "og:site_name") {
                             siteName =
@@ -191,18 +215,17 @@ internal class UrlPreviewHelper() {
 
 
             private fun getUrl(): String {
-                var link_url: String = "";
-
-                if (link_url.isEmpty()) {
+                var linkUrl = "";
+                if (linkUrl.isEmpty()) {
                     var uri: URI? = null
                     try {
                         uri = URI(url)
                     } catch (e: URISyntaxException) {
                         e.printStackTrace()
                     }
-                    link_url = uri!!.host
+                    linkUrl = uri!!.host
                 }
-                return link_url
+                return linkUrl
             }
 
             private fun resolveURL(url: String?, part: String): String? {

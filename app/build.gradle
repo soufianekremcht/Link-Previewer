@@ -9,7 +9,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.soufianekre.urlpreviewersample"
+        applicationId "com.soufianekre.linkpreviewersample"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -41,7 +41,7 @@ dependencies {
     debugImplementation 'cat.ereza:customactivityoncrash:2.2.0'
 
     implementation project(path: ':library')
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

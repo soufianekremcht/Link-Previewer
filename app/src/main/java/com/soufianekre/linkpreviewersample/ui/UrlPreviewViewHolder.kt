@@ -1,11 +1,11 @@
-package com.soufianekre.urlpreviewersample.ui
+package com.soufianekre.linkpreviewersample.ui
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-import com.soufianekre.urlpreviewer.views.UrlPreviewCard
-import com.soufianekre.urlpreviewersample.R
+import com.soufianekre.linkpreviewer.views.UrlPreviewCard
+import com.soufianekre.linkpreviewersample.R
 
 
 class UrlPreviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){

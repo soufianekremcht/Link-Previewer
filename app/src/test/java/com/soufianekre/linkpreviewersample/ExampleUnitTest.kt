@@ -1,4 +1,4 @@
-package com.soufianekre.urlpreviewer
+package com.soufianekre.linkpreviewersample
 
 import org.junit.Test
 
