@@ -1,4 +1,4 @@
-package com.soufianekre.urlpreviewersample
+package com.soufianekre.linkpreviewersample
 
 import android.app.Application
 

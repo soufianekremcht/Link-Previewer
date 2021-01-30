@@ -1,13 +1,13 @@
-package com.soufianekre.urlpreviewersample.ui
+package com.soufianekre.linkpreviewersample.ui
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
-import com.soufianekre.urlpreviewer.data.UrlPreviewItem
-import com.soufianekre.urlpreviewer.views.UrlPreviewCard
-import com.soufianekre.urlpreviewersample.R
+import com.soufianekre.linkpreviewer.data.UrlPreviewItem
+import com.soufianekre.linkpreviewer.views.UrlPreviewCard
+import com.soufianekre.linkpreviewersample.R
 
 import kotlinx.android.synthetic.main.activity_main.*
 

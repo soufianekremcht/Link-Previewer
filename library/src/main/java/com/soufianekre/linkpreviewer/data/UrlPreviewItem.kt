@@ -1,4 +1,4 @@
-package com.soufianekre.urlpreviewer.data
+package com.soufianekre.linkpreviewer.data
 
 import java.io.Serializable
 

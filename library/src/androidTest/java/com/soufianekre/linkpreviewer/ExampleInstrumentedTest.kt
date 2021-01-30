@@ -1,4 +1,4 @@
-package com.soufianekre.urlpreviewer
+package com.soufianekre.linkpreviewer
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

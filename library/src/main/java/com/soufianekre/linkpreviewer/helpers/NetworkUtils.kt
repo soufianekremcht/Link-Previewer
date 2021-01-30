@@ -1,4 +1,4 @@
-package com.soufianekre.urlpreviewer.helpers
+package com.soufianekre.linkpreviewer.helpers
 
 import android.content.Context
 import android.net.ConnectivityManager

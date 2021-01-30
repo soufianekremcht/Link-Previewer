@@ -1,4 +1,4 @@
-package com.soufianekre.urlpreviewer.views
+package com.soufianekre.linkpreviewer.views
 
 
 import android.content.Context
@@ -10,12 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.cardview.widget.CardView
-import com.soufianekre.urlpreviewer.R
-import com.soufianekre.urlpreviewer.UrlPreviewHelper
-import com.soufianekre.urlpreviewer.data.UrlPreviewItem
-import com.soufianekre.urlpreviewer.helpers.NetworkUtils
-import com.soufianekre.urlpreviewer.listeners.ResponseListener
-import com.soufianekre.urlpreviewer.listeners.UrlPreviewerListener
+import com.soufianekre.linkpreviewer.R
+import com.soufianekre.linkpreviewer.UrlPreviewHelper
+import com.soufianekre.linkpreviewer.data.UrlPreviewItem
+import com.soufianekre.linkpreviewer.helpers.NetworkUtils
+import com.soufianekre.linkpreviewer.listeners.ResponseListener
+import com.soufianekre.linkpreviewer.listeners.UrlPreviewerListener
 import com.squareup.picasso.Picasso
 
 
@@ -59,13 +59,10 @@ public class UrlPreviewCard(context: Context, attrs: AttributeSet?) : CardView(c
         if (NetworkUtils.isInternetAvailable(context)){
             UrlPreviewHelper.getPreview(url, object : ResponseListener {
                 override fun onResponse(urlPreview: UrlPreviewItem?) {
-
-                    listener?.onLinkLoaded(url!!, urlPreview!!)
                     displayPreview(urlPreview!!)
+                    listener?.onLinkLoaded(url!!, urlPreview)
                 }
-
                 override fun onError(e: Exception?) {
-                    //previewListener.onError(e)
                     Log.e("UrlPreviewCard", e?.message)
                     progressBar.visibility = View.GONE
                 }
@@ -78,16 +75,10 @@ public class UrlPreviewCard(context: Context, attrs: AttributeSet?) : CardView(c
 
 
     fun displayPreview(urlPreview: UrlPreviewItem) {
-        if (tag != urlPreview.url) {
+        if (tag != urlPreview.url)
             return
-        }
-
 
         loadedPreview = urlPreview
-
-
-        //urlText!!.text = webPreview.url
-
 
         if (urlPreview.imageUrl!!.isEmpty()) {
             urlImgView.visibility = View.GONE
