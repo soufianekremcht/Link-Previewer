@@ -30,7 +30,7 @@ allprojects {
 
 ~~~gradle
 dependencies {
-	implementation "com.github.SoufianeKreX:UrlPreviewer:" + library_version
+	implementation "com.github.SoufianeKreX:Link-Previewer:" + library_version
 }
 ~~~
 
@@ -162,4 +162,4 @@ class UrlPreviewAdapter(var context: Context, var urlList: ArrayList<String>) :
 }
 ~~~
 
-##### Check The sample App if you want To learn More about this part.
+##### Check the sample App if you want to learn more about this part.
