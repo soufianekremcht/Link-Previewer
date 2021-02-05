@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/SoufianeKreX/Link-Previewer.svg)](https://jitpack.io/#SoufianeKreX/Link-Previewer)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
 # Link Previewer
@@ -5,7 +7,7 @@
 Link Previewer Library For Android built in Kotlin.
 The library show a preview for any link like WhatsApp Chat Link Preview .
 
-[![](https://jitpack.io/v/SoufianeKreX/Link-Previewer.svg)](https://jitpack.io/#SoufianeKreX/Link-Previewer)
+
 
 
 ---
