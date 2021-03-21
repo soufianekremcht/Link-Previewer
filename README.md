@@ -164,7 +164,7 @@ Check the sample App if you want to learn more about this part.
 
 ## License 
 ```xml
-   Copyright 2021 soufianekremcht (Soufiane Kremcht)
+   Copyright 2020 soufianekremcht
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
